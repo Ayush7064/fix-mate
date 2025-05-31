@@ -1,24 +1,30 @@
 const express = require("express");
-const app= express();
-const mongoose = require('mongoose');
-const dummyServiceProviders= require("./init/service.data");
+const mongoose = require("mongoose");
+const ServiceProvider = require("./models/servicer");
 
+const app = express();
 
+// Middleware to parse JSON
+app.use(express.json());
 
+// MongoDB Connection
+mongoose.connect("mongodb://127.0.0.1:27017/fixMate")
+  .then(() => console.log("✅ Database Connected!"));
 
-mongoose.connect('mongodb://127.0.0.1:27017/fixMate')
-  .then(() => console.log('Databse Connected!'));
-
-
-
-
-
-app.get("/",(req,res)=>{
-    res.send("hello from root route");
+// Root Route
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Hello from the root route" });
 });
 
+// Service Providers Route
+app.get("/providers", async (req, res) => {
+  const providers = await ServiceProvider.find({});
+  res.json({ data: providers });
 
-const port=8080;
-app.listen(port,()=>{
-    console.log(`app is listning to the port ${port}`);
+});
+
+// Server Listening
+const port = 8080;
+app.listen(port, () => {
+  console.log(`🚀 Server is running on http://localhost:${port}`);
 });
