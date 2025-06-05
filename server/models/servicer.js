@@ -24,6 +24,11 @@ const serviceProviderSchema = new Schema({
     minLength: 10,
     maxLength: 11,
   },
+  title: {
+    type: String,
+    required: true,
+    trim: true
+  },
   skills: {
     type: [String],
     required: true,

@@ -1,11 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const ServiceProvider = require("./models/servicer");
 
 const app = express();
 
 // Middleware to parse JSON
 app.use(express.json());
+app.use(cors());
+
 
 // MongoDB Connection
 mongoose.connect("mongodb://127.0.0.1:27017/fixMate")
@@ -20,6 +23,12 @@ app.get("/", (req, res) => {
 app.get("/providers", async (req, res) => {
   const providers = await ServiceProvider.find({});
   res.json({ data: providers });
+
+});
+// Route to handle provider creation
+app.post("/create-providers", (req, res) => {
+  const data = req.body;
+  console.log("✅ Received Data:", data);
 
 });
 

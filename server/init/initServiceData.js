@@ -5,6 +5,7 @@ const dummyServiceProviders= require("./service.data");
 const serviceProvider= require("../models/servicer");
 const dummyUser= require("./user.data");
 const User= require("../models/user");
+const ServiceProvider = require("../models/servicer");
 
 
 
@@ -32,6 +33,13 @@ app.get("/insert-dummy-user", async (req, res) => {
     res.status(500).json({ error: "Failed to create dummy user" });
   }
 });
+
+async function deleteService(){
+    const res= await ServiceProvider.insertMany(dummyServiceProviders);
+    console.log("deleted!");
+}
+
+deleteService();
 
 
 const port=8080;
