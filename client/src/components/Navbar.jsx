@@ -1,61 +1,90 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Sparkles } from 'lucide-react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Sparkles, Menu, X } from 'lucide-react';
 
 function Navbar() {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleLogin = () => {
-    if (user) setUser(null)
-    else setUser({ name: 'John Doe' })
-  }
+    if (user) setUser(null);
+    else setUser({ name: 'John Doe' });
+  };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
-    <div className="navbar bg-base-100 shadow-sm sticky top-0 z-50">
-      <div className="flex-1">
-       <Link to="/" className="flex items-center gap-2 text-xl font-semibold text-gray-800">
-    <Sparkles size={20} className="text-primary" />
-    <span>FixMate</span>
-  </Link>
-      </div>
-      <div className="flex gap-2 items-center">
-        <input
-          type="text"
-          placeholder="Search"
-          className="input input-bordered w-24 md:w-auto"
-        />
+    <nav className="bg-base-100 shadow-sm sticky top-0 z-50">
+      <div className="flex justify-between items-center px-4 py-3 md:px-8">
+        {/* Brand */}
+        <Link
+          to="/"
+          className="flex items-center gap-2 text-xl font-semibold text-gray-800"
+          aria-label="FixMate Home"
+        >
+          <Sparkles size={20} style={{ color: '#0D80F2' }} />
+          <span className="text-2xl">FixMate</span>
+        </Link>
 
-        {user ? (
-          <div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full">
-                <img
-                  alt="User avatar"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                />
-              </div>
-            </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow">
-              <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
-              </li>
-              <li><a>Settings</a></li>
-              <li><a onClick={toggleLogin}>Logout</a></li>
-            </ul>
-          </div>
-        ) : (
-          <button className="btn btn-outline btn-sm" onClick={toggleLogin}>
-            Login
+        {/* Mobile Menu Button */}
+        <div className="md:hidden">
+          <button onClick={toggleMenu}>
+            {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
-        )}
+        </div>
+
+        {/* Desktop Links */}
+        <div className="hidden md:flex gap-4 items-center">
+          <Link to="/for-businesses" className="text-gray-600 text-lg hover:text-gray-800">
+            For Businesses
+          </Link>
+          <Link to="/help" className="text-gray-600 text-lg hover:text-gray-800">
+            Help
+          </Link>
+          <button
+            className="btn btn-sm text-lg text-white hover:bg-[#0D80F2] hover:opacity-90 rounded-lg"
+            style={{ backgroundColor: '#0D80F2' }}
+            onClick={toggleLogin}
+          >
+            {user ? 'Logout' : 'Login'}
+          </button>
+          <Link
+            to="/join-provider"
+            className="btn btn-outline rounded-lg btn-sm text-black text-lg border-[#0D80F2] hover:bg-[#0D80F2] hover:text-white"
+          >
+            Join as a Provider
+          </Link>
+        </div>
       </div>
-    </div>
-  )
+
+      {/* Mobile Menu Links */}
+      {isMenuOpen && (
+        <div className="flex flex-col gap-2 px-4 pb-4 md:hidden">
+          <Link to="/for-businesses" className="text-gray-700 text-lg hover:text-gray-900">
+            For Businesses
+          </Link>
+          <Link to="/help" className="text-gray-700 text-lg hover:text-gray-900">
+            Help
+          </Link>
+          <button
+            className="btn btn-sm w-full text-lg text-white hover:bg-[#0D80F2] hover:opacity-90 rounded-lg"
+            style={{ backgroundColor: '#0D80F2' }}
+            onClick={toggleLogin}
+          >
+            {user ? 'Logout' : 'Login'}
+          </button>
+          <Link
+            to="/join-provider"
+            className="btn btn-outline w-full rounded-lg btn-sm text-black text-lg border-[#0D80F2] hover:bg-[#0D80F2] hover:text-white"
+          >
+            Join as a Provider
+          </Link>
+        </div>
+      )}
+    </nav>
+  );
 }
 
-export default Navbar
+export default Navbar;
