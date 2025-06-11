@@ -3,13 +3,9 @@ import { Link } from 'react-router-dom';
 import { Sparkles, Menu, X } from 'lucide-react';
 
 function Navbar() {
-  const [user, setUser] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const toggleLogin = () => {
-    if (user) setUser(null);
-    else setUser({ name: 'John Doe' });
-  };
+  
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -43,13 +39,14 @@ function Navbar() {
           <Link to="/help" className="text-gray-600 text-lg hover:text-gray-800">
             Help
           </Link>
+          <Link to ="/login">
           <button
             className="btn btn-sm text-lg text-white hover:bg-[#0D80F2] hover:opacity-90 rounded-lg"
             style={{ backgroundColor: '#0D80F2' }}
-            onClick={toggleLogin}
           >
-            {user ? 'Logout' : 'Login'}
+            Login
           </button>
+          </Link>
           <Link
             to="/join-provider"
             className="btn btn-outline rounded-lg btn-sm text-black text-lg border-[#0D80F2] hover:bg-[#0D80F2] hover:text-white"
@@ -62,19 +59,21 @@ function Navbar() {
       {/* Mobile Menu Links */}
       {isMenuOpen && (
         <div className="flex flex-col gap-2 px-4 pb-4 md:hidden">
-          <Link to="/for-businesses" className="text-gray-700 text-lg hover:text-gray-900">
-            For Businesses
+          <Link to="/services" className="text-gray-700 text-lg hover:text-gray-900">
+            find Nearby Services
           </Link>
           <Link to="/help" className="text-gray-700 text-lg hover:text-gray-900">
             Help
           </Link>
-          <button
+          <Link to="/login">          <button
             className="btn btn-sm w-full text-lg text-white hover:bg-[#0D80F2] hover:opacity-90 rounded-lg"
             style={{ backgroundColor: '#0D80F2' }}
-            onClick={toggleLogin}
+            
           >
-            {user ? 'Logout' : 'Login'}
+          Login
           </button>
+          </Link>
+
           <Link
             to="/join-provider"
             className="btn btn-outline w-full rounded-lg btn-sm text-black text-lg border-[#0D80F2] hover:bg-[#0D80F2] hover:text-white"

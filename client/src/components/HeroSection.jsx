@@ -1,5 +1,7 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+// eslint-disable-next-line no-unused-vars
+import { motion } from "framer-motion";
+
 import heroImage from '/heroimg.png'; // Adjust the path as needed
 
 function HeroSection() {

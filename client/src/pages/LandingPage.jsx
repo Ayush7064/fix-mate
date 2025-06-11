@@ -1,4 +1,5 @@
 import React from 'react'
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion'
 import Navbar from '../components/Navbar'
 import HeroSection from '../components/HeroSection'
@@ -95,7 +96,7 @@ function LandingPage() {
           transition={{ duration: 0.5, delay: 0.1 }}
           viewport={{ once: true }}
         >
-          <Footer />
+          
         </motion.div>
       </motion.div>
     </>
